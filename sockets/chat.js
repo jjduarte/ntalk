@@ -11,12 +11,10 @@ module.exports = function (io) {
             client.broadcast.emit('notify-onlines', email);
         }
         client.on('join', function (sala) {
-            console.log('[J.D] LOG: recebe sala = ', sala);
             if(!sala) {
                 var timestamp = new Date().toString(),
                     md5 = crypto.createHash('md5');
                 sala = md5.update(timestamp).digest('hex');
-                console.log('[J.D] LOG: cria sala = ', sala);
             }
             session.sala = sala;
             client.join(sala);
@@ -32,7 +30,6 @@ module.exports = function (io) {
         });
 
         client.on('send-server', function (msg) {
-            console.log('[J.D] LOG: msg = ', msg);
             var sala = session.sala,
                 data = {email: usuario.email, sala: sala};
             msg = "<b>"+usuario.nome+":</b> " + msg + "<br>";

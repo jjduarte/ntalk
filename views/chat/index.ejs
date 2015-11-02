@@ -4,7 +4,6 @@
     var socket = io('http://localhost:3000');
     socket.emit('join', '<%- sala %>');
     socket.on('send-client', function (msg) {
-        console.log('[J.D] LOG: send-client = ', msg);
         document.getElementById('chat').innerHTML += msg;
     });
     var enviar = function () {

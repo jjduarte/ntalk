@@ -2,7 +2,6 @@ module.exports = function (app) {
     var ChatController = {
         index: function (req, res) {
             var params = {sala: req.query.sala};
-            console.log("LOG: params.sala", params.sala);
             res.render('chat/index', params);
         }
     };
