@@ -3,15 +3,35 @@
   "description": "Bide talk - Agenda de contatos",
   "version": "0.0.1",
   "private": false,
+  "scripts": {
+    "start": "DEBUG=* node server",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/**/*.js",
+    "test-dot": "NODE_ENV=test ./node_modules/.bin/mocha -R dot test/**/*.js",
+    "test-nyan": "NODE_ENV=test ./node_modules/.bin/mocha -R nyan test/**/*.js",
+    "test-doc": "NODE_ENV=test ./node_modules/.bin/mocha -R doc test/**/*.js"
+  },
   "dependencies": {
     "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "connect-redis": "^3.0.1",
     "cookie-parser": "^1.4.0",
+    "csurf": "^1.8.3",
     "debug": ">0.7.4",
     "ejs": ">2.3.3",
     "express": ">4.13.1",
     "express-load": "^1.1.15",
     "express-session": "^1.12.1",
+    "forever-monitor": "^1.7.0",
+    "hiredis": "^0.4.1",
     "method-override": "^2.3.5",
-    "socket.io": "^1.3.7"
+    "mongoose": "^4.2.3",
+    "redis": "^2.3.0",
+    "socket.io": "^1.3.7",
+    "socket.io-redis": "^0.1.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3",
+    "should": "^7.1.1",
+    "supertest": "^1.1.0"
   }
 }

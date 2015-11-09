@@ -1,4 +1,6 @@
 module.exports = function (app) {
+    var Usuario = app.models.usuario;
+
     var HomeController = {
         index: function (req, res) {
             res.render('home/index');
@@ -8,17 +10,25 @@ module.exports = function (app) {
             var email = req.body.usuario.email, 
                 nome = req.body.usuario.nome;
 
-            //se passou na validacao armazena em req.session.usuario
-            if(email && nome) {
-                var usuario = req.body.usuario;
-                //insere no array de contatos
-                usuario['contatos'] = [];
-                req.session.usuario = usuario;
-                res.redirect('/contatos');
-            } else {
-                res.redirect('/');
-            }
-            //redireciona para a rota de contatos
+            var query = {email: email};
+            Usuario.findOne(query)
+                .select('nome email')
+                .exec(function (erro, usuario) {
+                    if (usuario) {
+                        req.session.usuario = usuario;
+                        res.redirect('/contatos');
+                    } else {
+                        var usuario = req.body.usuario;
+                        Usuario.create(usuario, function (erro, usuario) {
+                            if (erro) {
+                                res.redirect('/');
+                            } else {
+                                req.session.usuario = usuario;
+                                res.redirect('/contatos');
+                            }
+                        });
+                    }
+                });
         },
         logout: function (req, res) {
             // chama req.session.destroy()
